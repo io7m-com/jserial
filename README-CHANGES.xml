@@ -3,6 +3,21 @@
   <c:project>io7m-jserial</c:project>
 
   <c:release c:ticket-system="com.github.io7m.jserial">
+    <c:date>2016-06-16</c:date>
+    <c:version>0.2.0</c:version>
+    <c:item>
+      <c:date>2016-06-16</c:date>
+      <c:type-code-change/>
+      <c:summary>Complete rewrite. Use interfaces and provide specialized 8, 16, 24, 32, 40, 48, 56, and 62 bit variants.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2016-06-16</c:date>
+      <c:type-code-change/>
+      <c:summary>Require JDK 8 for unsigned functionality.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.github.io7m.jserial">
     <c:date>2016-06-09</c:date>
     <c:version>0.1.0</c:version>
     <c:item>

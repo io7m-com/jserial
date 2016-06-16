@@ -17,18 +17,18 @@
 package com.io7m.jserial.core;
 
 /**
- * An implementation of 16-bit serial number arithmetic.
+ * An implementation of 24-bit serial number arithmetic.
  */
 
-public final class SerialNumber16 implements SerialNumberIntType
+public final class SerialNumber24 implements SerialNumberIntType
 {
-  private static final SerialNumber16 INSTANCE;
+  private static final SerialNumber24 INSTANCE;
 
   static {
-    INSTANCE = new SerialNumber16();
+    INSTANCE = new SerialNumber24();
   }
 
-  private SerialNumber16()
+  private SerialNumber24()
   {
 
   }
@@ -39,7 +39,7 @@ public final class SerialNumber16 implements SerialNumberIntType
 
   public static SerialNumberIntType get()
   {
-    return SerialNumber16.INSTANCE;
+    return SerialNumber24.INSTANCE;
   }
 
   @Override
@@ -50,17 +50,17 @@ public final class SerialNumber16 implements SerialNumberIntType
     final int d = s0 + s1;
 
     /**
-     * Pretend that d is an unsigned 16 bit value by masking off the high 16
+     * Pretend that d is an unsigned 24 bit value by masking off the high 8
      * bits.
      */
 
-    return d & 0x0000ffff;
+    return d & 0x00ffffff;
   }
 
   @Override
   public int bits()
   {
-    return 16;
+    return 24;
   }
 
   @Override
@@ -68,12 +68,12 @@ public final class SerialNumber16 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int s0_16 = s0 & 0xffff;
-    final int s1_16 = s1 & 0xffff;
-    final int d = s1_16 - s0_16;
+    final int s0_24 = s0 & 0xffffff;
+    final int s1_24 = s1 & 0xffffff;
+    final int d = s1_24 - s0_24;
     final int r;
-    if (d > 0x7fff) {
-      r = 0x7fff - d;
+    if (d > 0x7fffff) {
+      r = 0x7fffff - d;
     } else {
       r = d;
     }
@@ -92,6 +92,6 @@ public final class SerialNumber16 implements SerialNumberIntType
   public boolean inRange(
     final int s0)
   {
-    return (s0 >= 0) && (s0 <= 0xffff);
+    return (s0 >= 0) && (s0 <= 0xffffff);
   }
 }

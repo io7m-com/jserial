@@ -17,18 +17,20 @@
 package com.io7m.jserial.core;
 
 /**
- * An implementation of 16-bit serial number arithmetic.
+ * An implementation of 56-bit serial number arithmetic.
  */
 
-public final class SerialNumber16 implements SerialNumberIntType
+public final class SerialNumber56 implements SerialNumberLongType
 {
-  private static final SerialNumber16 INSTANCE;
+  private static final SerialNumber56 INSTANCE;
+  private static final long MAX_N = 0x00ffffff_ffffffffL;
+  private static final long MAX_N_M1 = 0x007fffff_ffffffffL;
 
   static {
-    INSTANCE = new SerialNumber16();
+    INSTANCE = new SerialNumber56();
   }
 
-  private SerialNumber16()
+  private SerialNumber56()
   {
 
   }
@@ -37,43 +39,36 @@ public final class SerialNumber16 implements SerialNumberIntType
    * @return A serial number calculator
    */
 
-  public static SerialNumberIntType get()
+  public static SerialNumberLongType get()
   {
-    return SerialNumber16.INSTANCE;
+    return SerialNumber56.INSTANCE;
   }
 
   @Override
-  public int add(
-    final int s0,
-    final int s1)
+  public long add(
+    final long s0,
+    final long s1)
   {
-    final int d = s0 + s1;
-
-    /**
-     * Pretend that d is an unsigned 16 bit value by masking off the high 16
-     * bits.
-     */
-
-    return d & 0x0000ffff;
+    return (s0 + s1) & SerialNumber56.MAX_N;
   }
 
   @Override
   public int bits()
   {
-    return 16;
+    return 56;
   }
 
   @Override
-  public int distance(
-    final int s0,
-    final int s1)
+  public long distance(
+    final long s0,
+    final long s1)
   {
-    final int s0_16 = s0 & 0xffff;
-    final int s1_16 = s1 & 0xffff;
-    final int d = s1_16 - s0_16;
-    final int r;
-    if (d > 0x7fff) {
-      r = 0x7fff - d;
+    final long s0_m = s0 & SerialNumber56.MAX_N;
+    final long s1_m = s1 & SerialNumber56.MAX_N;
+    final long d = s1_m - s0_m;
+    final long r;
+    if (d > SerialNumber56.MAX_N_M1) {
+      r = SerialNumber56.MAX_N_M1 - d;
     } else {
       r = d;
     }
@@ -81,17 +76,17 @@ public final class SerialNumber16 implements SerialNumberIntType
   }
 
   @Override
-  public int compare(
-    final int s0,
-    final int s1)
+  public long compare(
+    final long s0,
+    final long s1)
   {
     return -this.distance(s0, s1);
   }
 
   @Override
   public boolean inRange(
-    final int s0)
+    final long s0)
   {
-    return (s0 >= 0) && (s0 <= 0xffff);
+    return (s0 >= 0L) && (s0 <= SerialNumber56.MAX_N);
   }
 }

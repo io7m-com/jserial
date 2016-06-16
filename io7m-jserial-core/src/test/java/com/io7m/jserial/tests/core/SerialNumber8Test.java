@@ -14,10 +14,36 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-/**
- * Core types and functions.
- */
+package com.io7m.jserial.tests.core;
 
-@com.io7m.jnull.NonNullByDefault
-package com.io7m.jserial.core;
+import com.io7m.jserial.core.SerialNumber8;
+import com.io7m.jserial.core.SerialNumberIntType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public final class SerialNumber8Test extends SerialNumberIntContract
+{
+  private static final Logger LOG;
+
+  static {
+    LOG = LoggerFactory.getLogger(SerialNumber8Test.class);
+  }
+
+  @Override
+  protected SerialNumberIntType get()
+  {
+    return SerialNumber8.get();
+  }
+
+  @Override
+  protected Logger getLog()
+  {
+    return SerialNumber8Test.LOG;
+  }
+
+  @Override
+  protected int getIntegerBits()
+  {
+    return 8;
+  }
+}

@@ -7,13 +7,13 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.io7m.jserial</groupId>
-    <artifactId>io7m-jserial</artifactId>
+    <artifactId>com.io7m.jserial</artifactId>
     <version>0.2.0-SNAPSHOT</version>
   </parent>
-  <artifactId>io7m-jserial-checkstyle</artifactId>
+  <artifactId>com.io7m.jserial.checkstyle</artifactId>
 
   <packaging>jar</packaging>
-  <name>io7m-jserial-checkstyle</name>
+  <name>com.io7m.jserial.checkstyle</name>
   <description>Serial number arithmetic (Checkstyle policy)</description>
   <url>http://io7m.github.io/jserial/</url>
 
@@ -26,7 +26,7 @@
   <dependencies>
     <dependency>
       <groupId>com.io7m.jnull</groupId>
-      <artifactId>io7m-jnull-core</artifactId>
+      <artifactId>com.io7m.jnull.core</artifactId>
     </dependency>
   </dependencies>
 

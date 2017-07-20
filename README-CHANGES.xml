@@ -4,7 +4,7 @@
 
   <c:release c:ticket-system="com.github.io7m.jserial">
     <c:date>2017-04-16</c:date>
-    <c:version>0.2.0</c:version>
+    <c:version>0.3.0</c:version>
     <c:item>
       <c:date>2016-06-16</c:date>
       <c:type-code-change/>

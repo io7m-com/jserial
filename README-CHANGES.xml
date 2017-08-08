@@ -3,6 +3,16 @@
   <c:project>com.io7m.jserial</c:project>
 
   <c:release c:ticket-system="com.github.io7m.jserial">
+    <c:date>2017-08-08</c:date>
+    <c:version>0.3.1</c:version>
+    <c:item>
+      <c:date>2017-08-08</c:date>
+      <c:type-code-fix/>
+      <c:summary>Correct value wrapping: Distance comparisons were incorrect near the upper bounds of ranges.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.github.io7m.jserial">
     <c:date>2017-04-16</c:date>
     <c:version>0.3.0</c:version>
     <c:item>

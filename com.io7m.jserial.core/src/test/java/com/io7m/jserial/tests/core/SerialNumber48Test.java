@@ -36,7 +36,7 @@ public final class SerialNumber48Test extends SerialNumberLongContract
   }
 
   @Override
-  protected Logger getLog()
+  protected Logger log()
   {
     return SerialNumber48Test.LOG;
   }
@@ -45,5 +45,11 @@ public final class SerialNumber48Test extends SerialNumberLongContract
   protected long getIntegerBits()
   {
     return 48L;
+  }
+
+  @Override
+  protected long getNearUpper()
+  {
+    return 0xffff_ffff_ffffL - 3L;
   }
 }

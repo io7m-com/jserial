@@ -49,7 +49,7 @@ public final class SerialNumber24 implements SerialNumberIntType
   {
     final int d = s0 + s1;
 
-    /**
+    /*
      * Pretend that d is an unsigned 24 bit value by masking off the high 8
      * bits.
      */
@@ -68,12 +68,12 @@ public final class SerialNumber24 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int s0_24 = s0 & 0xffffff;
-    final int s1_24 = s1 & 0xffffff;
-    final int d = s1_24 - s0_24;
+    final int s0_w = s0 & 0xff_ffff;
+    final int s1_w = s1 & 0xff_ffff;
+    final int d = (s1_w - s0_w);
     final int r;
-    if (d > 0x7fffff) {
-      r = 0x7fffff - d;
+    if (Math.abs(d) >= 0x7f_ffff) {
+      r = -d % 0x7f_ffff;
     } else {
       r = d;
     }

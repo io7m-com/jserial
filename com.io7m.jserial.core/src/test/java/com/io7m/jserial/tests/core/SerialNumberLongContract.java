@@ -32,7 +32,7 @@ public abstract class SerialNumberLongContract
     final long s1,
     final long d)
   {
-    this.getLog().debug(
+    this.log().debug(
       "distance({} [{}], {} [{}]) = {} [{}]",
       Long.valueOf(s0),
       Long.toUnsignedString(s0, 16),
@@ -44,9 +44,11 @@ public abstract class SerialNumberLongContract
 
   protected abstract SerialNumberLongType get();
 
-  protected abstract Logger getLog();
+  protected abstract Logger log();
 
   protected abstract long getIntegerBits();
+
+  protected abstract long getNearUpper();
 
   private long getMask()
   {
@@ -169,6 +171,37 @@ public abstract class SerialNumberLongContract
 
       this.showDistance(x, y, d0);
       this.showDistance(y, x, d1);
+    }
+  }
+
+  @Test
+  public final void testWrap()
+  {
+    final SerialNumberLongType s = this.get();
+
+    long curr = this.getNearUpper();
+    for (int index = 0; index < 6; ++index) {
+      final long next = s.add(curr, 1);
+      final long distance_curr_next = s.distance(curr, next);
+      final long distance_next_curr = s.distance(next, curr);
+
+      this.log().debug(
+        "distance: curr {} next {} -> {}",
+        Long.valueOf(curr),
+        Long.valueOf(next),
+        Long.valueOf(distance_curr_next));
+
+      this.log().debug(
+        "distance: next {} curr {} -> {}",
+        Long.valueOf(next),
+        Long.valueOf(curr),
+        Long.valueOf(distance_next_curr));
+
+      Assert.assertEquals(1, distance_curr_next);
+      Assert.assertEquals(-1, distance_next_curr);
+      curr = next;
+
+      this.log().debug("--");
     }
   }
 }

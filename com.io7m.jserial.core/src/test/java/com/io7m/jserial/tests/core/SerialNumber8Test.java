@@ -18,6 +18,8 @@ package com.io7m.jserial.tests.core;
 
 import com.io7m.jserial.core.SerialNumber8;
 import com.io7m.jserial.core.SerialNumberIntType;
+import org.junit.Assert;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +38,7 @@ public final class SerialNumber8Test extends SerialNumberIntContract
   }
 
   @Override
-  protected Logger getLog()
+  protected Logger log()
   {
     return SerialNumber8Test.LOG;
   }
@@ -45,5 +47,42 @@ public final class SerialNumber8Test extends SerialNumberIntContract
   protected int getIntegerBits()
   {
     return 8;
+  }
+
+  @Override
+  protected int getNearUpper()
+  {
+    return 0xff - 3;
+  }
+
+  @Test
+  public final void testWrapComplete()
+  {
+    final SerialNumberIntType s = this.get();
+
+    int curr = 0;
+    for (int index = 0; index < 0xff * 2; ++index) {
+      final int next = s.add(curr, 1);
+      final int distance_curr_next = s.distance(curr, next);
+      final int distance_next_curr = s.distance(next, curr);
+
+      this.log().debug(
+        "distance: curr {} next {} -> {} (expecting 1)",
+        Integer.valueOf(curr),
+        Integer.valueOf(next),
+        Integer.valueOf(distance_curr_next));
+
+      this.log().debug(
+        "distance: next {} curr {} -> {} (expecting -1)",
+        Integer.valueOf(next),
+        Integer.valueOf(curr),
+        Integer.valueOf(distance_next_curr));
+
+      Assert.assertEquals(1, distance_curr_next);
+      Assert.assertEquals(-1, distance_next_curr);
+      curr = next;
+
+      this.log().debug("--");
+    }
   }
 }

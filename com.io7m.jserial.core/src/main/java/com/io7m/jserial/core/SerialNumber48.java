@@ -23,8 +23,6 @@ package com.io7m.jserial.core;
 public final class SerialNumber48 implements SerialNumberLongType
 {
   private static final SerialNumber48 INSTANCE;
-  private static final long MAX_N = 0x0000ffff_ffffffffL;
-  private static final long MAX_N_M1 = 0x00007fff_ffffffffL;
 
   static {
     INSTANCE = new SerialNumber48();
@@ -49,7 +47,7 @@ public final class SerialNumber48 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    return (s0 + s1) & SerialNumber48.MAX_N;
+    return (s0 + s1) & 0xffff_ffff_ffffL;
   }
 
   @Override
@@ -63,12 +61,12 @@ public final class SerialNumber48 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    final long s0_m = s0 & SerialNumber48.MAX_N;
-    final long s1_m = s1 & SerialNumber48.MAX_N;
-    final long d = s1_m - s0_m;
+    final long s0_w = s0 & 0xffff_ffff_ffffL;
+    final long s1_w = s1 & 0xffff_ffff_ffffL;
+    final long d = (s1_w - s0_w);
     final long r;
-    if (d > SerialNumber48.MAX_N_M1) {
-      r = SerialNumber48.MAX_N_M1 - d;
+    if (Math.abs(d) >= 0x7fff_ffff_ffffL) {
+      r = -d % 0x7fff_ffff_ffffL;
     } else {
       r = d;
     }
@@ -87,6 +85,6 @@ public final class SerialNumber48 implements SerialNumberLongType
   public boolean inRange(
     final long s0)
   {
-    return (s0 >= 0L) && (s0 <= SerialNumber48.MAX_N);
+    return (s0 >= 0L) && (s0 <= 0xffff_ffff_ffffL);
   }
 }

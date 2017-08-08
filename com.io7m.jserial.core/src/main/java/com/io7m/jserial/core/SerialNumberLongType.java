@@ -47,7 +47,7 @@ public interface SerialNumberLongType
    * @param s1 A serial number
    *
    * @return {@code 0} if the serial numbers are equal, a value less than {@code
-   * 0} iff
+   * 0} if {@code s0 < s1}, or a value greater than {@code 0} if {@code s0 > s1}
    */
 
   long compare(

@@ -32,7 +32,7 @@ public abstract class SerialNumberIntContract
     final int s1,
     final int d)
   {
-    this.getLog().debug(
+    this.log().debug(
       "distance({} [{}], {} [{}]) = {} [{}]",
       Integer.valueOf(s0),
       Integer.toUnsignedString(s0, 16),
@@ -44,9 +44,11 @@ public abstract class SerialNumberIntContract
 
   protected abstract SerialNumberIntType get();
 
-  protected abstract Logger getLog();
+  protected abstract Logger log();
 
   protected abstract int getIntegerBits();
+
+  protected abstract int getNearUpper();
 
   private int getMask()
   {
@@ -151,10 +153,23 @@ public abstract class SerialNumberIntContract
     final SerialNumberIntType s = this.get();
 
     for (int exp = 1; exp < this.getIntegerBits(); ++exp) {
+      this.log().debug("exp: {}", Integer.valueOf(exp));
+
       final int x = (int) Math.pow(2.0, (double) exp) & this.getMask();
       final int y = (int) Math.pow(2.0, (double) (exp - 1)) & this.getMask();
       final int d0 = s.distance(x, y);
       final int d1 = s.distance(y, x);
+
+      this.log().debug(
+        "distance: {} {} -> {}",
+        Integer.valueOf(x),
+        Integer.valueOf(y),
+        Integer.valueOf(d0));
+      this.log().debug(
+        "distance: {} {} -> {}",
+        Integer.valueOf(y),
+        Integer.valueOf(x),
+        Integer.valueOf(d1));
 
       Assert.assertTrue(Math.abs(d0) < this.getLargestDistance());
       Assert.assertTrue(Math.abs(d1) < this.getLargestDistance());
@@ -163,6 +178,37 @@ public abstract class SerialNumberIntContract
 
       this.showDistance(x, y, d0);
       this.showDistance(y, x, d1);
+    }
+  }
+
+  @Test
+  public final void testWrap()
+  {
+    final SerialNumberIntType s = this.get();
+
+    int curr = this.getNearUpper();
+    for (int index = 0; index < 6; ++index) {
+      final int next = s.add(curr, 1);
+      final int distance_curr_next = s.distance(curr, next);
+      final int distance_next_curr = s.distance(next, curr);
+
+      this.log().debug(
+        "distance: curr {} next {} -> {}",
+        Integer.valueOf(curr),
+        Integer.valueOf(next),
+        Integer.valueOf(distance_curr_next));
+
+      this.log().debug(
+        "distance: next {} curr {} -> {}",
+        Integer.valueOf(next),
+        Integer.valueOf(curr),
+        Integer.valueOf(distance_next_curr));
+
+      Assert.assertEquals(1, distance_curr_next);
+      Assert.assertEquals(-1, distance_next_curr);
+      curr = next;
+
+      this.log().debug("--");
     }
   }
 }

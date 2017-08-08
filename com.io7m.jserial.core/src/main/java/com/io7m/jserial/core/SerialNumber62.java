@@ -17,14 +17,12 @@
 package com.io7m.jserial.core;
 
 /**
- * An implementation of 56-bit serial number arithmetic.
+ * An implementation of 62-bit serial number arithmetic.
  */
 
 public final class SerialNumber62 implements SerialNumberLongType
 {
   private static final SerialNumber62 INSTANCE;
-  private static final long MAX_N = 0x3fffffff_ffffffffL;
-  private static final long MAX_N_M1 = 0x1fffffff_ffffffffL;
 
   static {
     INSTANCE = new SerialNumber62();
@@ -49,7 +47,7 @@ public final class SerialNumber62 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    return (s0 + s1) & SerialNumber62.MAX_N;
+    return (s0 + s1) & 0x3fff_ffff_ffff_ffffL;
   }
 
   @Override
@@ -63,12 +61,12 @@ public final class SerialNumber62 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    final long s0_m = s0 & SerialNumber62.MAX_N;
-    final long s1_m = s1 & SerialNumber62.MAX_N;
-    final long d = s1_m - s0_m;
+    final long s0_w = s0 & 0x3fff_ffff_ffff_ffffL;
+    final long s1_w = s1 & 0x3fff_ffff_ffff_ffffL;
+    final long d = (s1_w - s0_w);
     final long r;
-    if (d > SerialNumber62.MAX_N_M1) {
-      r = SerialNumber62.MAX_N_M1 - d;
+    if (Math.abs(d) >= 0x1fff_ffff_ffff_ffffL) {
+      r = -d % 0x1fff_ffff_ffff_ffffL;
     } else {
       r = d;
     }
@@ -87,6 +85,6 @@ public final class SerialNumber62 implements SerialNumberLongType
   public boolean inRange(
     final long s0)
   {
-    return (s0 >= 0L) && (Long.compareUnsigned(s0, SerialNumber62.MAX_N) <= 0);
+    return (s0 >= 0L) && (Long.compareUnsigned(s0, 0x3fff_ffff_ffff_ffffL) <= 0);
   }
 }

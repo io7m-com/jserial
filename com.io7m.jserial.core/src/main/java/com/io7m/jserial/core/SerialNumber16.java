@@ -49,7 +49,7 @@ public final class SerialNumber16 implements SerialNumberIntType
   {
     final int d = s0 + s1;
 
-    /**
+    /*
      * Pretend that d is an unsigned 16 bit value by masking off the high 16
      * bits.
      */
@@ -68,12 +68,12 @@ public final class SerialNumber16 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int s0_16 = s0 & 0xffff;
-    final int s1_16 = s1 & 0xffff;
-    final int d = s1_16 - s0_16;
+    final int s0_w = s0 & 0xffff;
+    final int s1_w = s1 & 0xffff;
+    final int d = (s1_w - s0_w);
     final int r;
-    if (d > 0x7fff) {
-      r = 0x7fff - d;
+    if (Math.abs(d) >= 0x7fff) {
+      r = -d % 0x7fff;
     } else {
       r = d;
     }

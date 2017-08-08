@@ -13,7 +13,7 @@
 
   <groupId>com.io7m.jserial</groupId>
   <artifactId>com.io7m.jserial</artifactId>
-  <version>0.3.1-SNAPSHOT</version>
+  <version>0.3.1</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.jserial</name>

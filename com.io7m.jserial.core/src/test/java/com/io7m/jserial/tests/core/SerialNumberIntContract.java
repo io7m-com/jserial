@@ -66,6 +66,8 @@ public abstract class SerialNumberIntContract
       final int x1 = x0 + 1;
       final int d0 = s.distance(0, x0);
       final int d1 = s.distance(0, x1);
+      final int d0u = s.distanceUnsigned(0, x0);
+      final int d1u = s.distanceUnsigned(0, x1);
 
       this.log().debug("exp: {}", Integer.valueOf(exp));
       this.showDistance(0, x0, d0);
@@ -74,8 +76,11 @@ public abstract class SerialNumberIntContract
       if (exp != bits) {
         Assert.assertEquals((long) x0, (long) d0);
         Assert.assertEquals((long) x1, (long) d1);
+        Assert.assertEquals((long) x0, (long) d0u);
+        Assert.assertEquals((long) x1, (long) d1u);
       } else {
         Assert.assertEquals(-1L, (long) d0);
+        Assert.assertEquals(1L, (long) d0u);
       }
     }
   }

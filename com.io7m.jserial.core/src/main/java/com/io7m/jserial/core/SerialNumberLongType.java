@@ -55,7 +55,7 @@ public interface SerialNumberLongType
     long s1);
 
   /**
-   * Calculate the distance between {@code s0} and {@code s1}.
+   * Calculate the signed distance between {@code s0} and {@code s1}.
    *
    * @param s0 A serial number
    * @param s1 A serial number
@@ -66,6 +66,22 @@ public interface SerialNumberLongType
   long distance(
     long s0,
     long s1);
+
+  /**
+   * Calculate the unsigned distance between {@code s0} and {@code s1}.
+   *
+   * @param s0 A serial number
+   * @param s1 A serial number
+   *
+   * @return The distance
+   */
+
+  default long distanceUnsigned(
+    final long s0,
+    final long s1)
+  {
+    return Math.abs(this.distance(s0, s1));
+  }
 
   /**
    * Determine serial number validity.

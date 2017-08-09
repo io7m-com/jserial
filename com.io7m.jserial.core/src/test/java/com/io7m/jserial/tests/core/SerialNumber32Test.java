@@ -38,18 +38,18 @@ public final class SerialNumber32Test extends SerialNumberLongContract
   @Override
   protected Logger log()
   {
-    return SerialNumber32Test.LOG;
+    return LOG;
   }
 
   @Override
-  protected long getIntegerBits()
+  protected long integerBits()
   {
     return 32L;
   }
 
   @Override
-  protected long getNearUpper()
+  protected long nearLargestValue()
   {
-    return 0xffff_ffffL - 3L;
+    return 4294967295L - 3L;
   }
 }

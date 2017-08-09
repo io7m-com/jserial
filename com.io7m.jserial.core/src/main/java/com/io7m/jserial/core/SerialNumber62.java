@@ -39,7 +39,7 @@ public final class SerialNumber62 implements SerialNumberLongType
 
   public static SerialNumberLongType get()
   {
-    return SerialNumber62.INSTANCE;
+    return INSTANCE;
   }
 
   @Override
@@ -47,7 +47,7 @@ public final class SerialNumber62 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    return (s0 + s1) & 0x3fff_ffff_ffff_ffffL;
+    return (s0 + s1) % 4611686018427387904L;
   }
 
   @Override
@@ -61,16 +61,7 @@ public final class SerialNumber62 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    final long s0_w = s0 & 0x3fff_ffff_ffff_ffffL;
-    final long s1_w = s1 & 0x3fff_ffff_ffff_ffffL;
-    final long d = (s1_w - s0_w);
-    final long r;
-    if (Math.abs(d) >= 0x1fff_ffff_ffff_ffffL) {
-      r = -d % 0x1fff_ffff_ffff_ffffL;
-    } else {
-      r = d;
-    }
-    return r;
+    return SerialDistance.distanceL(s0, s1, 4611686018427387904L);
   }
 
   @Override
@@ -85,6 +76,6 @@ public final class SerialNumber62 implements SerialNumberLongType
   public boolean inRange(
     final long s0)
   {
-    return (s0 >= 0L) && (Long.compareUnsigned(s0, 0x3fff_ffff_ffff_ffffL) <= 0);
+    return (s0 >= 0L) && (Long.compareUnsigned(s0, 4611686018427387904L) < 0);
   }
 }

@@ -40,19 +40,19 @@ public final class SerialNumber8Test extends SerialNumberIntContract
   @Override
   protected Logger log()
   {
-    return SerialNumber8Test.LOG;
+    return LOG;
   }
 
   @Override
-  protected int getIntegerBits()
+  protected int integerBits()
   {
     return 8;
   }
 
   @Override
-  protected int getNearUpper()
+  protected int nearLargestValue()
   {
-    return 0xff - 3;
+    return 255 - 3;
   }
 
   @Test
@@ -84,5 +84,31 @@ public final class SerialNumber8Test extends SerialNumberIntContract
 
       this.log().debug("--");
     }
+  }
+
+  @Test
+  public void testDifficultValues()
+  {
+    final SerialNumberIntType s = this.get();
+    Assert.assertEquals(0, s.distance(0, 0));
+    Assert.assertEquals(1, s.distance(0xff, 0));
+    Assert.assertEquals(2, s.distance(0xfe, 0));
+    Assert.assertEquals(3, s.distance(0xfd, 0));
+    Assert.assertEquals(4, s.distance(0xfc, 0));
+    Assert.assertEquals(5, s.distance(0xfb, 0));
+  }
+
+  @Test
+  public void testZero255()
+  {
+    final SerialNumberIntType s = this.get();
+    Assert.assertEquals(-1, s.distance(0, 255));
+  }
+
+  @Test
+  public void test255Zero()
+  {
+    final SerialNumberIntType s = this.get();
+    Assert.assertEquals(1, s.distance(255, 0));
   }
 }

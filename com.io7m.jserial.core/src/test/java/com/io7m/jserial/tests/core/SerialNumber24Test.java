@@ -18,6 +18,8 @@ package com.io7m.jserial.tests.core;
 
 import com.io7m.jserial.core.SerialNumber24;
 import com.io7m.jserial.core.SerialNumberIntType;
+import org.junit.Assert;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,18 +40,30 @@ public final class SerialNumber24Test extends SerialNumberIntContract
   @Override
   protected Logger log()
   {
-    return SerialNumber24Test.LOG;
+    return LOG;
   }
 
   @Override
-  protected int getIntegerBits()
+  protected int integerBits()
   {
     return 24;
   }
 
   @Override
-  protected int getNearUpper()
+  protected int nearLargestValue()
   {
-    return 0xffffff - 3;
+    return 16777215 - 3;
+  }
+
+  @Test
+  public void testDifficultValues()
+  {
+    final SerialNumberIntType s = this.get();
+    Assert.assertEquals(0, s.distance(0, 0));
+    Assert.assertEquals(1, s.distance(16777215, 0));
+    Assert.assertEquals(2, s.distance(16777214, 0));
+    Assert.assertEquals(3, s.distance(16777213, 0));
+    Assert.assertEquals(4, s.distance(16777212, 0));
+    Assert.assertEquals(5, s.distance(16777211, 0));
   }
 }

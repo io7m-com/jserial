@@ -46,18 +46,13 @@ public abstract class SerialNumberLongContract
 
   protected abstract Logger log();
 
-  protected abstract long getIntegerBits();
+  protected abstract long integerBits();
 
-  protected abstract long getNearUpper();
+  protected abstract long nearLargestValue();
 
-  private long getMask()
+  private long largestDistance()
   {
-    return (1L << this.getIntegerBits()) - 1L;
-  }
-
-  private long getLargestDistance()
-  {
-    return (1L << this.getIntegerBits() - 1L) - 1L;
+    return (1L << (this.integerBits() - 1L));
   }
 
   @Test
@@ -65,48 +60,119 @@ public abstract class SerialNumberLongContract
   {
     final SerialNumberLongType s = this.get();
 
-    for (long exp = 0L; exp < this.getIntegerBits(); ++exp) {
-      final long raw0 = (long) Math.pow(2.0, (double) exp);
-      final long x = raw0 & this.getMask();
-      final long d0 = s.distance(0L, x);
-      final long d1 = s.distance(0L, x + 1L);
+    final long bits = this.integerBits();
+    for (long exp = 0L; exp <= bits; ++exp) {
+      final long x0 = (1L << exp) - 1L;
+      final long x1 = x0 + 1L;
+      final long d0 = s.distance(0L, x0);
+      final long d1 = s.distance(0L, x1);
 
-      this.showDistance(0L, x, d0);
-      this.showDistance(0L, x + 1L, d1);
+      this.log().debug("exp: {}", Long.valueOf(exp));
+      this.showDistance(0L, x0, d0);
+      this.showDistance(0L, x1, d1);
 
-      if (exp < this.getIntegerBits() - 1L) {
-        Assert.assertEquals(x, d0);
-        Assert.assertEquals(x + 1L, d1);
+      if (exp != bits) {
+        Assert.assertEquals(x0, d0);
+        Assert.assertEquals(x1, d1);
       } else {
         Assert.assertEquals(-1L, d0);
-        Assert.assertEquals(-2L, d1);
       }
     }
   }
 
   @Test
-  public final void testCompareOrder()
+  public final void testDistancesPow2()
   {
     final SerialNumberLongType s = this.get();
 
-    for (long exp = 0L; exp < this.getIntegerBits(); ++exp) {
-      final long raw0 = (long) Math.pow(2.0, (double) exp);
-      final long x = raw0 & this.getMask();
-      final long d0 = s.distance(0L, x);
-      final long d1 = s.distance(0L, x + 1L);
+    final long bits = this.integerBits();
+    for (long exp = 1L; exp <= bits; ++exp) {
+      final long x0 = (1L << (exp - 1L)) - 1L;
+      final long x1 = (1L << exp) - 1L;
+      final long d0 = s.distance(x0, x1);
+      final long d1 = s.distance(x1, x0);
 
-      this.showDistance(0L, x, d0);
-      this.showDistance(0L, x + 1L, d1);
+      this.log().debug("exp: {}", Long.valueOf(exp));
+      this.showDistance(x0, x1, d0);
+      this.showDistance(x1, x0, d1);
 
-      Assert.assertEquals(0L, s.compare(x, x));
+      final long ad0 = Math.abs(d0);
+      final long ad1 = Math.abs(d1);
+      Assert.assertTrue(ad0 <= this.largestDistance());
+      Assert.assertTrue(ad1 <= this.largestDistance());
+      Assert.assertEquals(1L << (exp - 1L), d0);
+      Assert.assertEquals(-(1L << (exp - 1L)), d1);
+    }
+  }
 
-      if (exp < this.getIntegerBits() - 1L) {
-        Assert.assertEquals(x, d0);
-        Assert.assertEquals(x + 1L, d1);
+  @Test
+  public final void testCompareOrder0_Pow2()
+  {
+    final SerialNumberLongType s = this.get();
+
+    final long bits = this.integerBits();
+    for (long exp = 1L; exp <= bits; ++exp) {
+      final long x0 = (1L << exp) - 1L;
+      final long c0_x0 = s.compare(0L, x0);
+      final long x0_c0 = s.compare(x0, 0L);
+
+      this.log().debug(
+        "exp: {}", Long.valueOf(exp));
+
+      this.log().debug(
+        "compare: {} {} -> {}",
+        Long.valueOf(0),
+        Long.valueOf(x0),
+        Long.valueOf(c0_x0));
+
+      this.log().debug(
+        "compare: {} {} -> {}",
+        Long.valueOf(x0),
+        Long.valueOf(0),
+        Long.valueOf(x0_c0));
+
+      Assert.assertEquals(0L, (long) s.compare(x0, x0));
+
+      if (exp != bits) {
+        Assert.assertTrue(c0_x0 < 0);
+        Assert.assertTrue(x0_c0 > 0);
       } else {
-        Assert.assertEquals(-1L, d0);
-        Assert.assertEquals(-2L, d1);
+        Assert.assertEquals(1L, c0_x0);
+        Assert.assertEquals(-1L, x0_c0);
       }
+    }
+  }
+
+  @Test
+  public final void testCompareOrderPow2_Pow2m1()
+  {
+    final SerialNumberLongType s = this.get();
+
+    final long bits = this.integerBits();
+    for (long exp = 1L; exp <= bits; ++exp) {
+      final long x0 = (1L << (exp - 1L)) - 1L;
+      final long x1 = (1L << exp) - 1L;
+
+      final long c_x0_x1 = s.compare(x0, x1);
+      final long c_x1_x0 = s.compare(x1, x0);
+
+      this.log().debug(
+        "exp: {}", Long.valueOf(exp));
+
+      this.log().debug(
+        "compare: {} {} -> {}",
+        Long.valueOf(x0),
+        Long.valueOf(x1),
+        Long.valueOf(c_x0_x1));
+
+      this.log().debug(
+        "compare: {} {} -> {}",
+        Long.valueOf(x1),
+        Long.valueOf(x0),
+        Long.valueOf(c_x1_x0));
+
+      Assert.assertTrue(c_x0_x1 < 0);
+      Assert.assertTrue(c_x1_x0 > 0);
     }
   }
 
@@ -115,9 +181,8 @@ public abstract class SerialNumberLongContract
   {
     final SerialNumberLongType s = this.get();
 
-    for (long exp = 0L; exp < this.getIntegerBits(); ++exp) {
-      final long raw0 = (long) Math.pow(2.0, (double) exp);
-      final long x = raw0 & this.getMask();
+    for (long exp = 0L; exp <= this.integerBits(); ++exp) {
+      final long x = (1L << exp) - 1L;
       final long y = s.add(x, 1L);
       final long z = s.add(x, -1L);
 
@@ -132,7 +197,7 @@ public abstract class SerialNumberLongContract
   {
     final SerialNumberLongType s = this.get();
     Assert.assertTrue(s.bits() > 0);
-    Assert.assertEquals(this.getIntegerBits(), (long) s.bits());
+    Assert.assertEquals(this.integerBits(), (long) s.bits());
   }
 
   @Test
@@ -140,9 +205,8 @@ public abstract class SerialNumberLongContract
   {
     final SerialNumberLongType s = this.get();
 
-    for (long exp = 1L; exp < this.getIntegerBits(); ++exp) {
-      final long raw = (long) Math.pow(2.0, (double) exp);
-      final long x = raw & this.getMask();
+    for (long exp = 1L; exp < this.integerBits(); ++exp) {
+      final long x = (1L << exp) - 1L;
       Assert.assertTrue(s.inRange(x));
       Assert.assertFalse(s.inRange(-x));
     }
@@ -152,36 +216,13 @@ public abstract class SerialNumberLongContract
   }
 
   @Test
-  public final void testDistancesPow2()
-  {
-    final SerialNumberLongType s = this.get();
-
-    for (long exp = 1L; exp < this.getIntegerBits(); ++exp) {
-      final long raw0 = (long) Math.pow(2.0, (double) exp);
-      final long raw1 = (long) Math.pow(2.0, (double) (exp - 1L));
-      final long x = raw0 & this.getMask();
-      final long y = raw1 & this.getMask();
-      final long d0 = s.distance(x, y);
-      final long d1 = s.distance(y, x);
-
-      Assert.assertTrue(Math.abs(d0) < this.getLargestDistance());
-      Assert.assertTrue(Math.abs(d1) < this.getLargestDistance());
-      Assert.assertEquals(d0, -y);
-      Assert.assertEquals(d1, y);
-
-      this.showDistance(x, y, d0);
-      this.showDistance(y, x, d1);
-    }
-  }
-
-  @Test
   public final void testWrap()
   {
     final SerialNumberLongType s = this.get();
 
-    long curr = this.getNearUpper();
+    long curr = this.nearLargestValue();
     for (int index = 0; index < 6; ++index) {
-      final long next = s.add(curr, 1);
+      final long next = s.add(curr, 1L);
       final long distance_curr_next = s.distance(curr, next);
       final long distance_next_curr = s.distance(next, curr);
 
@@ -197,8 +238,8 @@ public abstract class SerialNumberLongContract
         Long.valueOf(curr),
         Long.valueOf(distance_next_curr));
 
-      Assert.assertEquals(1, distance_curr_next);
-      Assert.assertEquals(-1, distance_next_curr);
+      Assert.assertEquals(1L, distance_curr_next);
+      Assert.assertEquals(-1L, distance_next_curr);
       curr = next;
 
       this.log().debug("--");

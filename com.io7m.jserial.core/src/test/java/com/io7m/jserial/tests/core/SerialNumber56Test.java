@@ -16,7 +16,6 @@
 
 package com.io7m.jserial.tests.core;
 
-import com.io7m.jserial.core.SerialNumber48;
 import com.io7m.jserial.core.SerialNumber56;
 import com.io7m.jserial.core.SerialNumberLongType;
 import org.slf4j.Logger;
@@ -39,17 +38,17 @@ public final class SerialNumber56Test extends SerialNumberLongContract
   @Override
   protected Logger log()
   {
-    return SerialNumber56Test.LOG;
+    return LOG;
   }
 
   @Override
-  protected long getIntegerBits()
+  protected long integerBits()
   {
     return 56L;
   }
 
   @Override
-  protected long getNearUpper()
+  protected long nearLargestValue()
   {
     return 0xff_ffff_ffff_ffffL - 3L;
   }

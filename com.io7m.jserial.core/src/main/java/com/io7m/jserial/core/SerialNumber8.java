@@ -39,7 +39,7 @@ public final class SerialNumber8 implements SerialNumberIntType
 
   public static SerialNumberIntType get()
   {
-    return SerialNumber8.INSTANCE;
+    return INSTANCE;
   }
 
   @Override
@@ -47,14 +47,7 @@ public final class SerialNumber8 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int d = s0 + s1;
-
-    /*
-     * Pretend that d is an unsigned 8 bit value by masking off the high 24
-     * bits.
-     */
-
-    return d & 0x000000ff;
+    return (s0 + s1) % 256;
   }
 
   @Override
@@ -68,16 +61,7 @@ public final class SerialNumber8 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int s0_w = s0 & 0xff;
-    final int s1_w = s1 & 0xff;
-    final int d = (s1_w - s0_w);
-    final int r;
-    if (Math.abs(d) >= 0x7f) {
-      r = -d % 0x7f;
-    } else {
-      r = d;
-    }
-    return r;
+    return SerialDistance.distance(s0, s1, 256);
   }
 
   @Override
@@ -92,6 +76,6 @@ public final class SerialNumber8 implements SerialNumberIntType
   public boolean inRange(
     final int s0)
   {
-    return (s0 >= 0) && (s0 <= 0xff);
+    return (s0 >= 0) && (s0 < 256);
   }
 }

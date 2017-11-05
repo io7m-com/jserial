@@ -10,7 +10,7 @@
     <li>48-bit serial number arithmetic</li>
     <li>56-bit serial number arithmetic</li>
     <li>62-bit serial number arithmetic</li>
-    <li>100% unit test coverage</li>
+    <li>High coverage test suite</li>
     <li><a href="https://www.osgi.org/">OSGi</a>-ready</li>
     <li>ISC license</li>
   </ul>

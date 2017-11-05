@@ -23,6 +23,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public abstract class SerialNumberIntContract
 {
   @Rule public final ExpectedException expected = ExpectedException.none();

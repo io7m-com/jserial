@@ -18,5 +18,5 @@
  * Documentation.
  */
 
-@com.io7m.jnull.NonNullByDefault package com.io7m.jserial.documentation;
+package com.io7m.jserial.documentation;
 

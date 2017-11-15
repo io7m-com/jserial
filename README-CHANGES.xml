@@ -1,64 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<c:changelog xmlns:c="http://schemas.io7m.com/changelog/2.0.0">
-  <c:project>com.io7m.jserial</c:project>
-
-  <c:release c:ticket-system="com.github.io7m.jserial">
-    <c:date>2017-08-09</c:date>
-    <c:version>0.4.0</c:version>
-    <c:item>
-      <c:date>2017-08-08</c:date>
-      <c:type-code-fix/>
-      <c:summary>Correct value wrapping: Distance comparisons were incorrect near the upper bounds of ranges.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2017-08-09</c:date>
-      <c:type-code-new/>
-      <c:summary>Add unsigned distance functions.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2017-11-05</c:date>
-      <c:type-code-change/>
-      <c:summary>Require JDK 9, publish Java 9 modules.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2017-11-05</c:date>
-      <c:type-code-change/>
-      <c:summary>Remove com.io7m.jnull dependency.</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:release c:ticket-system="com.github.io7m.jserial">
-    <c:date>2017-04-16</c:date>
-    <c:version>0.3.0</c:version>
-    <c:item>
-      <c:date>2016-06-16</c:date>
-      <c:type-code-change/>
-      <c:summary>Complete rewrite. Use interfaces and provide specialized 8, 16, 24, 32, 40, 48, 56, and 62 bit variants.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2016-06-16</c:date>
-      <c:type-code-change/>
-      <c:summary>Require JDK 8 for unsigned functionality.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2017-04-16</c:date>
-      <c:type-code-change/>
-      <c:summary>Rename project. Use the new primogenitor POM and 2017 project conventions.</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:release c:ticket-system="com.github.io7m.jserial">
-    <c:date>2016-06-09</c:date>
-    <c:version>0.1.0</c:version>
-    <c:item>
-      <c:date>2016-06-09</c:date>
-      <c:type-code-new/>
-      <c:summary>Initial release.</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:ticket-system xml:id="com.github.io7m.jserial">
-    <c:ticket-url>https://github.com/io7m/jserial/issues</c:ticket-url>
-  </c:ticket-system>
-
+<c:changelog xmlns:c="urn:com.io7m.changelog:4.0" project="com.io7m.jserial">
+   <c:releases>
+      <c:release date="2017-08-09T00:00:00+00:00"
+                 version="0.4.0"
+                 ticket-system="com.github.io7m.jserial">
+         <c:changes>
+            <c:change date="2017-08-08T00:00:00+00:00"
+                      summary="Correct value wrapping: Distance comparisons were incorrect near the upper bounds of ranges."/>
+            <c:change date="2017-08-09T00:00:00+00:00"
+                      summary="Add unsigned distance functions."/>
+            <c:change date="2017-11-05T00:00:00+00:00"
+                      summary="Require JDK 9, publish Java 9 modules."
+                      compatible="false"/>
+            <c:change date="2017-11-05T00:00:00+00:00"
+                      summary="Remove com.io7m.jnull dependency."
+                      compatible="false"/>
+         </c:changes>
+      </c:release>
+      <c:release date="2017-04-16T00:00:00+00:00"
+                 version="0.3.0"
+                 ticket-system="com.github.io7m.jserial">
+         <c:changes>
+            <c:change date="2016-06-16T00:00:00+00:00"
+                      summary="Complete rewrite. Use interfaces and provide specialized 8, 16, 24, 32, 40, 48, 56, and 62 bit variants."
+                      compatible="false"/>
+            <c:change date="2016-06-16T00:00:00+00:00"
+                      summary="Require JDK 8 for unsigned functionality."
+                      compatible="false"/>
+            <c:change date="2017-04-16T00:00:00+00:00"
+                      summary="Rename project. Use the new primogenitor POM and 2017 project conventions."
+                      compatible="false"/>
+         </c:changes>
+      </c:release>
+      <c:release date="2016-06-09T00:00:00+00:00"
+                 version="0.1.0"
+                 ticket-system="com.github.io7m.jserial">
+         <c:changes>
+            <c:change date="2016-06-09T00:00:00+00:00" summary="Initial release."/>
+         </c:changes>
+      </c:release>
+   </c:releases>
+   <c:ticket-systems>
+      <c:ticket-system id="com.github.io7m.jserial"
+                       url="https://github.com/io7m/jserial/issues"/>
+   </c:ticket-systems>
 </c:changelog>

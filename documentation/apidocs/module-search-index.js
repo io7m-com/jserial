@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"com.io7m.jserial.core"},{"l":"com.io7m.jserial.documentation"}]

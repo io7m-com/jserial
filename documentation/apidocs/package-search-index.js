@@ -1,0 +1,1 @@
+packageSearchIndex = [{"m":"com.io7m.jserial.core","l":"com.io7m.jserial.core"},{"m":"com.io7m.jserial.documentation","l":"com.io7m.jserial.documentation"}]

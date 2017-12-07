@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.io7m.jserial</groupId>
     <artifactId>com.io7m.jserial</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
   </parent>
   <artifactId>com.io7m.jserial.core</artifactId>
 
@@ -17,16 +17,10 @@
   <description>Serial number arithmetic (Core)</description>
   <url>http://io7m.github.io/jserial/</url>
 
-  <scm>
-    <url>${project.parent.scm.url}</url>
-    <connection>${project.parent.scm.connection}</connection>
-    <developerConnection>${project.parent.scm.developerConnection}</developerConnection>
-  </scm>
-
   <dependencies>
     <dependency>
-      <groupId>com.io7m.jnull</groupId>
-      <artifactId>com.io7m.jnull.core</artifactId>
+      <groupId>com.io7m.junreachable</groupId>
+      <artifactId>com.io7m.junreachable.core</artifactId>
     </dependency>
 
     <dependency>
@@ -78,6 +72,12 @@
             <ignoredUnusedDeclaredDependency>ch.qos.logback:logback-classic:*</ignoredUnusedDeclaredDependency>
           </ignoredUnusedDeclaredDependencies>
         </configuration>
+      </plugin>
+
+      <!-- Determine test coverage -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

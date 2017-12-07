@@ -14,42 +14,13 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.io7m.jserial.tests.core;
+/**
+ * Serial number arithmetic (Core)
+ */
 
-import com.io7m.jserial.core.SerialNumber48;
-import com.io7m.jserial.core.SerialNumberLongType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public final class SerialNumber48Test extends SerialNumberLongContract
+module com.io7m.jserial.core
 {
-  private static final Logger LOG;
+  requires com.io7m.junreachable.core;
 
-  static {
-    LOG = LoggerFactory.getLogger(SerialNumber48Test.class);
-  }
-
-  @Override
-  protected SerialNumberLongType get()
-  {
-    return SerialNumber48.get();
-  }
-
-  @Override
-  protected Logger log()
-  {
-    return LOG;
-  }
-
-  @Override
-  protected long integerBits()
-  {
-    return 48L;
-  }
-
-  @Override
-  protected long nearLargestValue()
-  {
-    return 0xffff_ffff_ffffL - 3L;
-  }
+  exports com.io7m.jserial.core;
 }

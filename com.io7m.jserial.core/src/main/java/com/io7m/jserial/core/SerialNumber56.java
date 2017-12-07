@@ -23,8 +23,6 @@ package com.io7m.jserial.core;
 public final class SerialNumber56 implements SerialNumberLongType
 {
   private static final SerialNumber56 INSTANCE;
-  private static final long MAX_N = 0x00ffffff_ffffffffL;
-  private static final long MAX_N_M1 = 0x007fffff_ffffffffL;
 
   static {
     INSTANCE = new SerialNumber56();
@@ -41,7 +39,7 @@ public final class SerialNumber56 implements SerialNumberLongType
 
   public static SerialNumberLongType get()
   {
-    return SerialNumber56.INSTANCE;
+    return INSTANCE;
   }
 
   @Override
@@ -49,7 +47,7 @@ public final class SerialNumber56 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    return (s0 + s1) & SerialNumber56.MAX_N;
+    return (s0 + s1) % 72057594037927936L;
   }
 
   @Override
@@ -63,16 +61,7 @@ public final class SerialNumber56 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    final long s0_m = s0 & SerialNumber56.MAX_N;
-    final long s1_m = s1 & SerialNumber56.MAX_N;
-    final long d = s1_m - s0_m;
-    final long r;
-    if (d > SerialNumber56.MAX_N_M1) {
-      r = SerialNumber56.MAX_N_M1 - d;
-    } else {
-      r = d;
-    }
-    return r;
+    return SerialDistance.distanceL(s0, s1, 72057594037927936L);
   }
 
   @Override
@@ -87,6 +76,6 @@ public final class SerialNumber56 implements SerialNumberLongType
   public boolean inRange(
     final long s0)
   {
-    return (s0 >= 0L) && (s0 <= SerialNumber56.MAX_N);
+    return (s0 >= 0L) && (s0 < 72057594037927936L);
   }
 }

@@ -39,7 +39,7 @@ public final class SerialNumber16 implements SerialNumberIntType
 
   public static SerialNumberIntType get()
   {
-    return SerialNumber16.INSTANCE;
+    return INSTANCE;
   }
 
   @Override
@@ -47,14 +47,7 @@ public final class SerialNumber16 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int d = s0 + s1;
-
-    /**
-     * Pretend that d is an unsigned 16 bit value by masking off the high 16
-     * bits.
-     */
-
-    return d & 0x0000ffff;
+    return (s0 + s1) % 65536;
   }
 
   @Override
@@ -68,16 +61,7 @@ public final class SerialNumber16 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int s0_16 = s0 & 0xffff;
-    final int s1_16 = s1 & 0xffff;
-    final int d = s1_16 - s0_16;
-    final int r;
-    if (d > 0x7fff) {
-      r = 0x7fff - d;
-    } else {
-      r = d;
-    }
-    return r;
+    return SerialDistance.distance(s0, s1, 65536);
   }
 
   @Override
@@ -92,6 +76,6 @@ public final class SerialNumber16 implements SerialNumberIntType
   public boolean inRange(
     final int s0)
   {
-    return (s0 >= 0) && (s0 <= 0xffff);
+    return (s0 >= 0) && (s0 < 65536);
   }
 }

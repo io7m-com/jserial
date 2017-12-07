@@ -36,14 +36,20 @@ public final class SerialNumber16Test extends SerialNumberIntContract
   }
 
   @Override
-  protected Logger getLog()
+  protected Logger log()
   {
-    return SerialNumber16Test.LOG;
+    return LOG;
   }
 
   @Override
-  protected int getIntegerBits()
+  protected int integerBits()
   {
     return 16;
+  }
+
+  @Override
+  protected int nearLargestValue()
+  {
+    return 65535 - 3;
   }
 }

@@ -39,7 +39,7 @@ public final class SerialNumber24 implements SerialNumberIntType
 
   public static SerialNumberIntType get()
   {
-    return SerialNumber24.INSTANCE;
+    return INSTANCE;
   }
 
   @Override
@@ -47,14 +47,7 @@ public final class SerialNumber24 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int d = s0 + s1;
-
-    /**
-     * Pretend that d is an unsigned 24 bit value by masking off the high 8
-     * bits.
-     */
-
-    return d & 0x00ffffff;
+    return (s0 + s1) % 16777216;
   }
 
   @Override
@@ -68,16 +61,7 @@ public final class SerialNumber24 implements SerialNumberIntType
     final int s0,
     final int s1)
   {
-    final int s0_24 = s0 & 0xffffff;
-    final int s1_24 = s1 & 0xffffff;
-    final int d = s1_24 - s0_24;
-    final int r;
-    if (d > 0x7fffff) {
-      r = 0x7fffff - d;
-    } else {
-      r = d;
-    }
-    return r;
+    return SerialDistance.distance(s0, s1, 16777216);
   }
 
   @Override
@@ -92,6 +76,6 @@ public final class SerialNumber24 implements SerialNumberIntType
   public boolean inRange(
     final int s0)
   {
-    return (s0 >= 0) && (s0 <= 0xffffff);
+    return (s0 >= 0) && (s0 < 16777216);
   }
 }

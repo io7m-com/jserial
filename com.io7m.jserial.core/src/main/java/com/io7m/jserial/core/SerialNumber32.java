@@ -23,8 +23,6 @@ package com.io7m.jserial.core;
 public final class SerialNumber32 implements SerialNumberLongType
 {
   private static final SerialNumber32 INSTANCE;
-  private static final long MAX_N = 0x00000000_ffffffffL;
-  private static final long MAX_N_M1 = 0x00000000_7fffffffL;
 
   static {
     INSTANCE = new SerialNumber32();
@@ -41,7 +39,7 @@ public final class SerialNumber32 implements SerialNumberLongType
 
   public static SerialNumberLongType get()
   {
-    return SerialNumber32.INSTANCE;
+    return INSTANCE;
   }
 
   @Override
@@ -49,7 +47,7 @@ public final class SerialNumber32 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    return (s0 + s1) & SerialNumber32.MAX_N;
+    return (s0 + s1) % 4294967296L;
   }
 
   @Override
@@ -63,16 +61,7 @@ public final class SerialNumber32 implements SerialNumberLongType
     final long s0,
     final long s1)
   {
-    final long s0_m = s0 & SerialNumber32.MAX_N;
-    final long s1_m = s1 & SerialNumber32.MAX_N;
-    final long d = s1_m - s0_m;
-    final long r;
-    if (d > SerialNumber32.MAX_N_M1) {
-      r = SerialNumber32.MAX_N_M1 - d;
-    } else {
-      r = d;
-    }
-    return r;
+    return SerialDistance.distanceL(s0, s1, 4294967296L);
   }
 
   @Override
@@ -87,6 +76,6 @@ public final class SerialNumber32 implements SerialNumberLongType
   public boolean inRange(
     final long s0)
   {
-    return (s0 >= 0L) && (s0 <= SerialNumber32.MAX_N);
+    return (s0 >= 0L) && (s0 < 4294967296L);
   }
 }

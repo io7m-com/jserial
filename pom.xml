@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
     <artifactId>com.io7m.primogenitor.full</artifactId>
-    <version>3.1.0</version>
+    <version>5.0.0</version>
   </parent>
 
   <groupId>com.io7m.jserial</groupId>
@@ -23,6 +23,7 @@
   </modules>
 
   <properties>
+    <com.codacy.id>17aaba814dcb4a0691a25558e232e619</com.codacy.id>
     <io7m.api.previousVersion>0.4.0</io7m.api.previousVersion>
   </properties>
 
@@ -80,6 +81,12 @@
         <groupId>com.io7m.junreachable</groupId>
         <artifactId>com.io7m.junreachable.core</artifactId>
         <version>2.1.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.io7m.primogenitor</groupId>
+        <artifactId>com.io7m.primogenitor.support</artifactId>
+        <version>5.0.0</version>
       </dependency>
 
       <dependency>

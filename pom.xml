@@ -67,8 +67,8 @@
   </distributionManagement>
 
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/io7m/jserial</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/jserial/actions</url>
   </ciManagement>
 
   <prerequisites>

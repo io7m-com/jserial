@@ -8,10 +8,6 @@
          <img src="https://img.shields.io/maven-central/v/com.io7m.jserial/com.io7m.jserial.png?style=flat-square"
               alt="Maven Central"/>
       </a>
-      <a href="https://www.codacy.com/app/github_79/jserial">
-         <img src="https://img.shields.io/codacy/grade/17aaba814dcb4a0691a25558e232e619.png?style=flat-square"
-              alt="Codacy"/>
-      </a>
       <a href="https://codecov.io/gh/io7m/jserial">
          <img src="https://img.shields.io/codecov/c/github/io7m/jserial.png?style=flat-square"
               alt="Codecov"/>

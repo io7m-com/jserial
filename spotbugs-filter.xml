@@ -8,4 +8,18 @@
     </Or>
   </Match>
 
+  <Match>
+    <Or>
+      <Class name="com.io7m.jserial.core.SerialNumber8"/>
+      <Class name="com.io7m.jserial.core.SerialNumber16"/>
+      <Class name="com.io7m.jserial.core.SerialNumber24"/>
+      <Class name="com.io7m.jserial.core.SerialNumber32"/>
+      <Class name="com.io7m.jserial.core.SerialNumber40"/>
+      <Class name="com.io7m.jserial.core.SerialNumber48"/>
+      <Class name="com.io7m.jserial.core.SerialNumber56"/>
+      <Class name="com.io7m.jserial.core.SerialNumber62"/>
+    </Or>
+    <Bug pattern="MS_EXPOSE_REP"/>
+  </Match>
+
 </FindBugsFilter>

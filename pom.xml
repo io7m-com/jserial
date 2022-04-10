@@ -13,7 +13,7 @@
 
   <groupId>com.io7m.jserial</groupId>
   <artifactId>com.io7m.jserial</artifactId>
-  <version>0.5.0</version>
+  <version>0.6.0-SNAPSHOT</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.jserial</name>
@@ -26,7 +26,7 @@
   </modules>
 
   <properties>
-    <io7m.api.previousVersion>0.4.0</io7m.api.previousVersion>
+    <io7m.api.previousVersion>0.5.0</io7m.api.previousVersion>
   </properties>
 
   <licenses>

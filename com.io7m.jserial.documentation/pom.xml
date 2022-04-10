@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +16,7 @@
   <packaging>jar</packaging>
   <name>com.io7m.jserial.documentation</name>
   <description>Serial number arithmetic (Documentation)</description>
-  <url>http://io7m.github.io/jserial/</url>
+  <url>https://www.io7m.com/software/jserial</url>
 
   <properties>
     <mdep.analyze.skip>true</mdep.analyze.skip>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -15,7 +18,7 @@
   <packaging>pom</packaging>
   <name>com.io7m.jserial</name>
   <description>Serial number arithmetic</description>
-  <url>http://github.com/io7m/jserial</url>
+  <url>https://www.io7m.com/software/jserial</url>
 
   <modules>
     <module>com.io7m.jserial.core</module>
@@ -29,7 +32,7 @@
   <licenses>
     <license>
       <name>ISC License</name>
-      <url>http://io7m.com/license/isc.txt</url>
+      <url>https://io7m.com/license/isc.txt</url>
     </license>
   </licenses>
 
@@ -44,12 +47,12 @@
       <id>io7m</id>
       <name>io7m</name>
       <email>code@io7m.com</email>
-      <url>http://io7m.com</url>
+      <url>https://io7m.com</url>
     </developer>
   </developers>
 
   <issueManagement>
-    <url>http://github.com/io7m/jserial/issues</url>
+    <url>https://github.com/io7m/jserial/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
 

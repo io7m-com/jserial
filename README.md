@@ -2,10 +2,10 @@ jserial
 ===
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.io7m.jserial/com.io7m.jserial.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.io7m.jserial%22)
-[![Maven Central (snapshot)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/com.io7m.jserial/com.io7m.jserial.svg?style=flat-square)](https://s01.oss.sonatype.org/content/repositories/snapshots/com/io7m/jserial/)
+[![Maven Central (snapshot)](https://img.shields.io/nexus/s/com.io7m.jserial/com.io7m.jserial?server=https%3A%2F%2Fs01.oss.sonatype.org&style=flat-square)](https://s01.oss.sonatype.org/content/repositories/snapshots/com/io7m/jserial/)
 [![Codecov](https://img.shields.io/codecov/c/github/io7m/jserial.svg?style=flat-square)](https://codecov.io/gh/io7m/jserial)
 
-![jserial](./src/site/resources/jserial.jpg?raw=true)
+![com.io7m.jserial](./src/site/resources/jserial.jpg?raw=true)
 
 | JVM | Platform | Status |
 |-----|----------|--------|

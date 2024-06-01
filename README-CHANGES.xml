@@ -21,9 +21,11 @@
         <c:change compatible="false" date="2017-11-05T00:00:00+00:00" summary="Remove com.io7m.jnull dependency."/>
       </c:changes>
     </c:release>
-    <c:release date="2024-06-01T19:35:33+00:00" is-open="true" ticket-system="com.github.io7m.jserial" version="1.0.0">
+    <c:release date="2024-06-01T19:37:35+00:00" is-open="false" ticket-system="com.github.io7m.jserial" version="1.0.0">
       <c:changes>
-        <c:change date="2024-06-01T19:35:33+00:00" summary="Initial release."/>
+        <c:change date="2024-04-19T00:00:00+00:00" summary="Update ch.qos.logback:logback-classic:1.4.14 → 1.5.6."/>
+        <c:change date="2024-04-19T00:00:00+00:00" summary="Update org.slf4j:slf4j-api:2.0.10 → 2.0.13."/>
+        <c:change date="2024-06-01T00:00:00+00:00" summary="Initial release."/>
       </c:changes>
     </c:release>
   </c:releases>

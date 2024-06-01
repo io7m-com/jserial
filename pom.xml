@@ -26,6 +26,7 @@
   </modules>
 
   <properties>
+    <!-- Configuration. -->
     <io7m.api.previousVersion>0.5.0</io7m.api.previousVersion>
     <io7m.java.targetJavaVersion>21</io7m.java.targetJavaVersion>
   </properties>
